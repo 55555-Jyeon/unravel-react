@@ -1,7 +1,7 @@
 import { MOCK_DATA } from "../mock/data";
 import { MockDataType } from "../mock/type";
 
-const PER_PAGE = 10;
+const PER_PAGE = 8;
 
 export const getMockData = (
   pageNum: number

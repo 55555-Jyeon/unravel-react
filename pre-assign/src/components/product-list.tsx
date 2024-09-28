@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getMockData } from "../api/data";
 import { MockDataType } from "../mock/type";
 import OneProduct from "./product";
+import LoadingSpinner from "./UI/loading";
 
 const ProductList = () => {
   const [products, setProducts] = useState<MockDataType[]>([]);
@@ -46,7 +47,7 @@ const ProductList = () => {
 
   return (
     <>
-      <div className="title">
+      <div className="product-title">
         <h1>Product List</h1>
         <h2>💰 Total Price : {totalPrice.toLocaleString()}</h2>
       </div>
@@ -54,13 +55,14 @@ const ProductList = () => {
         {products.map((product, index) => (
           <OneProduct
             key={`${product.productId}-${index}`}
+            index={index}
             product={product}
             isLast={index === products.length - 1}
             lastProductRef={lastProductRef}
           />
         ))}
       </div>
-      {isLoading && <p>loading...</p>}
+      <LoadingSpinner isLoading={isLoading} />
       {!hasMoreProducts && <p>there is no more products to show</p>}
     </>
   );
