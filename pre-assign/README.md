@@ -42,4 +42,52 @@ https://github.com/user-attachments/assets/3f9cea26-f1cb-497e-b685-b31b1a1b87ce
 ```
 
 <br />
+
+#### 코드 발췌
+
+- 조건에 따라 비동기 상태 관련 라이브러리를 사용하지 않고 무한 스크롤을 구현한 경우
+
+```js
+  const [products, setProducts] = useState<MockDataType[]>([]); // 가져온 상품 데이터를 저장하는 상태
+  const [page, setPage] = useState<number>(0); // 현재 페이지 번호를 추적하는 상태 (무한 스크롤에서 사용)
+  const [totalPrice, setTotalPrice] = useState<number>(0); // 현재까지 가져온 모든 상품의 가격 총합을 저장하는 상태
+  const [isLoading, setIsLoading] = useState<boolean>(false); // 로딩 중인지 여부를 관리하는 상태 (로딩 스피너 표시 여부에 사용)
+  const [hasMoreProducts, setHasMoreProducts] = useState<boolean>(true); // 더 가져올 상품이 있는지 여부를 확인하는 상태
+
+  // 페이지가 변경될 때마다 데이터를 가져오는 useEffect
+  useEffect(() => {
+    setIsLoading(true); // 로딩 상태로 전환
+    // 페이지에 맞는 데이터 가져오기
+    getMockData(page)
+      .then((result: { datas: MockDataType[]; isEnd: boolean }) => {
+        setProducts((prevProducts) => [...prevProducts, ...result.datas]); // 가져온 데이터를 기존 상품 목록에 추가
+        setTotalPrice((prevTotal) => prevTotal + result.datas.reduce((sum, product) => sum + product.price, 0)); // 가격 총합 업데이트
+        setHasMoreProducts(!result.isEnd); // 더 이상 가져올 데이터가 없을 경우 상태 업데이트
+      })
+      .finally(() => {setIsLoading(false); }); // 로딩 완료 후 상태 변경
+  }, [page]); // 페이지 상태가 변경될 때마다 실행
+```
+
+- 비동기 상태 관련 라이브러리를 사용해 무한 스크롤을 구현한 경우
+
+```js
+// React Query의 useInfiniteQuery를 사용해 데이터를 페칭했다면?
+
+  const {
+    data,
+    fetchNextPage, // 다음 페이지 데이터를 가져오는 함수
+    hasNextPage, // 더 가져올 페이지가 있는지 여부
+    isFetchingNextPage, // 다음 페이지 로드 중인지 여부
+    isLoading,
+    isError,
+  } = useInfiniteQuery({
+    queryKey :["products"],
+    queryFn :({ pageParam = 0 }) => getMockData(pageParam), // 페이지 매개변수를 사용해 API 호출
+    {
+      getNextPageParam: (lastPage) => (lastPage.isEnd ? undefined : lastPage.nextPage), // 마지막 페이지가 아니면 다음 페이지 번호 반환
+    }
+  });
+```
+
+<br />
 <br />
