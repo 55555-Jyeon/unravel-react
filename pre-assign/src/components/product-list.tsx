@@ -45,8 +45,8 @@ const ProductList = () => {
   }, [page]);
 
   return (
-    <div>
-      <div>
+    <>
+      <div className="product-title">
         <h1>Product List</h1>
         <h2>💰 Total Price : {totalPrice.toLocaleString()}</h2>
       </div>
@@ -62,7 +62,7 @@ const ProductList = () => {
       </div>
       {isLoading && <p>loading...</p>}
       {!hasMoreProducts && <p>there is no more products to show</p>}
-    </div>
+    </>
   );
 };
 export default ProductList;
