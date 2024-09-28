@@ -2,6 +2,7 @@ import "./product-list.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getMockData } from "../api/data";
 import { MockDataType } from "../mock/type";
+import OneProduct from "./product";
 
 const ProductList = () => {
   const [products, setProducts] = useState<MockDataType[]>([]);
@@ -11,6 +12,7 @@ const ProductList = () => {
   const [hasMoreProducts, setHasMoreProducts] = useState<boolean>(true);
 
   const observer = useRef<IntersectionObserver | null>(null);
+
   const lastProductRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (isLoading) return;
@@ -50,13 +52,12 @@ const ProductList = () => {
       </div>
       <div className="section">
         {products.map((product, index) => (
-          <div
+          <OneProduct
             key={product.productId}
-            ref={index === products.length - 1 ? lastProductRef : null}
-          >
-            <h3>{product.productName}</h3>
-            <p>price: {product.price}</p>
-          </div>
+            product={product}
+            isLast={index === products.length - 1}
+            lastProductRef={lastProductRef}
+          />
         ))}
       </div>
       {isLoading && <p>loading...</p>}
