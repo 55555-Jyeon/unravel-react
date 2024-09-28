@@ -3,7 +3,9 @@ import { MockDataType } from "../mock/type";
 
 const PER_PAGE = 10;
 
-export const getMockData = (pageNum: number) => {
+export const getMockData = (
+  pageNum: number
+): Promise<{ datas: MockDataType[]; isEnd: boolean }> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const datas: MockDataType[] = MOCK_DATA.slice(
