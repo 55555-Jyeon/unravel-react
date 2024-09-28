@@ -1,5 +1,5 @@
-import { MockDataType } from "../mock/type";
-import "./product.css";
+import { MockDataType } from "../../mock/type";
+import "./one.css";
 
 export type ProductProps = {
   index: number;
