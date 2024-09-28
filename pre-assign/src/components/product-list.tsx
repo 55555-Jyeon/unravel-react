@@ -46,14 +46,14 @@ const ProductList = () => {
 
   return (
     <>
-      <div className="product-title">
+      <div className="title">
         <h1>Product List</h1>
         <h2>💰 Total Price : {totalPrice.toLocaleString()}</h2>
       </div>
       <div className="section">
         {products.map((product, index) => (
           <OneProduct
-            key={product.productId}
+            key={`${product.productId}-${index}`}
             product={product}
             isLast={index === products.length - 1}
             lastProductRef={lastProductRef}
