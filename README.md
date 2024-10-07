@@ -29,22 +29,22 @@ React의 오픈소스 톺아보기(hook function)
   <tr>
     <td>역량 향상 세션 (day01)</td>
     <td>10.07(월) 19시</td>
-    <td>-</td>
+    <td>useState 톺아보기</td>
   </tr>
   <tr>
     <td>역량 향상 세션 (day02)</td>
     <td>10.12(토) 10시</td>
-    <td>-</td>
+    <td>useMemo, useRef 잘 사용하기</td>
   </tr>
   <tr>
     <td>역량 향상 세션 (day03)</td>
     <td>10.14(월) 19시</td>
-    <td>-</td>
+    <td>useEffect 톺아보기</td>
   </tr>
   <tr>
     <td>역량 향상 세션 (day04)</td>
     <td>10.19(토) 10시</td>
-    <td>-</td>
+    <td>Fiber와 Reconciler</td>
   </tr>
 </table>
 
